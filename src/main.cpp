@@ -13,21 +13,36 @@ int main() {
 
     // vector<int> f(5);
     vector<int> v1 (4);
-    // v1.reserve(6);
+    vector<int> v2 (4);
+    v2.reserve(6);
 
     v1[0] = 3;
     v1[1] = 2;
-    v1[2] = 49;
+    v1[2] = 49;    
+    
+    v2[0] = 13;
+    v2[1] = 12;
+    v2[2] = 149;
+
     // v1[3] = 58;
+    auto my_iter = v1.begin();
+    cout << my_iter << "my iter\n";
+    auto my_iter2 = v2.begin();
+    cout << my_iter2 << "my iter2\n";
+
     v1.print();
     auto tt = v1.capacity();
     cout << tt << endl;
 
     auto jj = v1.size();
     cout << jj << endl;
-    cout << "beg" << v1.begin() << endl;
-    cout << "end" << (v1.end()-4) << endl;
-    v1.insert(v1.end(), 69);
+
+    v1.swap(v2);
+
+     my_iter = v1.begin();
+    cout << my_iter << "my iter\n";
+     my_iter2 = v2.begin();
+    cout << my_iter2 << "my iter2\n";
     // v1.pop_back();
     // v1.pop_back();
     // v1.pop_back();
@@ -41,8 +56,6 @@ int main() {
     auto rr = v1.size();
     cout << rr << endl;
 
-    // auto ww = v1.end();
-    // cout << *(ww ) << endl;
 
     cout << endl;
 
@@ -52,11 +65,19 @@ int main() {
 
     // 
     std::vector<int> v4 (4);
-    // v4.reserve(6);
+    std::vector<int> v7 (4);
+
+
+    v7.reserve(6);
     
     v4[0] = 5;
     v4[1] = 6;
     v4[2] = 7;
+
+    v7[0] = 15;
+    v7[1] = 16;
+    v7[2] = 17;
+
     for (int i: v4)
         std::cout << i << ' ';
     cout << endl;
@@ -71,12 +92,21 @@ int main() {
 
 
     std::vector<int>::iterator iter = v4.begin();
-    cout << static_cast<void*>(&(*iter))  << " v4 beg\n"; 
-    v4.insert(iter, 66);
-    iter = v4.begin();
-    cout << static_cast<void*>(&(*iter))  << " v4 beg\n"; 
+std::cout << static_cast<void*>(&(*iter)) << " v4 beg\n"; 
+    auto f = v4.front();
+    cout << &f << " f data\n";
 
-    cout << "insert done\n";
+    std::vector<int>::iterator iter2 = v7.begin();
+std::cout << static_cast<void*>(&(*iter2)) << " v7 beg\n"; 
+
+    v4.swap(v7);
+
+    iter = v4.begin();
+std::cout << static_cast<void*>(&(*iter)) << " v4 beg\n";     
+
+iter2 = v7.begin();
+std::cout << static_cast<void*>(&(*iter2)) << " v7 beg\n"; 
+
         // v4.pop_back();
         // v4.pop_back();
         // v4.pop_back();
@@ -88,12 +118,23 @@ int main() {
     for (int i: v4)
         std::cout << i << "| ";
     cout << endl;
+
+
     auto bb = v4.capacity();
     cout << bb << endl;
 
     auto aa = v4.size();
     cout << aa << endl;
 
+    for (int i: v7)
+        std::cout << i << "| ";
+    cout << endl;
+
+    auto pp = v7.capacity();
+    cout << pp << endl;
+
+    auto xz = v7.size();
+    cout << xz << endl;
     cout << endl;
 
     // std::vector<int>::iterator iter = v4.begin();

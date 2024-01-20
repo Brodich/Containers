@@ -44,5 +44,9 @@ val: test
 run:
 	./$(OUT_FILE)
 
+clang:
+	@clang-format -style=google -i $(WORK_DIR)*.cc
+	@clang-format -style=google -i $(WORK_DIR)*.h
+
 clean:
 	-@rm a.out executable testlog.log s21_containers.a tests/test
