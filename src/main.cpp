@@ -13,41 +13,86 @@ int main() {
 
     // vector<int> f(5);
     vector<int> v1 (4);
-    v1.reserve(6);
+    // v1.reserve(6);
 
     v1[0] = 3;
-    // v1[1] = 2;
-    // v1[2] = 49;
+    v1[1] = 2;
+    v1[2] = 49;
     // v1[3] = 58;
+    v1.print();
+    auto tt = v1.capacity();
+    cout << tt << endl;
 
-    // v1.print();
-    // v1.shrink_to_fit();
-    auto b = v1.capacity();
-    std::cout << "Type of num: " << typeid(b).name() << std::endl;
+    auto jj = v1.size();
+    cout << jj << endl;
+    cout << "beg" << v1.begin() << endl;
+    cout << "end" << (v1.end()-4) << endl;
+    v1.insert(v1.end(), 69);
+    // v1.pop_back();
+    // v1.pop_back();
+    // v1.pop_back();
+    // v1.push_back(87);
 
-    cout << b << endl;
+    v1.print();
 
-    // vector<int>::VectorIterator gh = v1.begin();
-    // std::cout << "Type of num: " << typeid(gh).name() << std::endl;
-    // cout << *(gh++) << "begin";
-    // cout << *(gh) << "begin";
+    auto hh = v1.capacity();
+    cout << hh << endl;
+
+    auto rr = v1.size();
+    cout << rr << endl;
+
+    // auto ww = v1.end();
+    // cout << *(ww ) << endl;
+
+    cout << endl;
 
 
+
+    cout << "eeeeeeeeee\n";
 
     // 
     std::vector<int> v4 (4);
-    v4.reserve(6);
+    // v4.reserve(6);
     
     v4[0] = 5;
     v4[1] = 6;
     v4[2] = 7;
-    v4[3] = 0;
-    // v4.shrink_to_fit();
-    
-
+    for (int i: v4)
+        std::cout << i << ' ';
+    cout << endl;
     auto gg = v4.capacity();
-    std::cout << "Type of num: " << typeid(gg).name() << std::endl;
     cout << gg << endl;
+
+    auto zz = v4.size();
+    cout << zz << endl;
+
+
+    cout << endl;
+
+
+    std::vector<int>::iterator iter = v4.begin();
+    cout << static_cast<void*>(&(*iter))  << " v4 beg\n"; 
+    v4.insert(iter, 66);
+    iter = v4.begin();
+    cout << static_cast<void*>(&(*iter))  << " v4 beg\n"; 
+
+    cout << "insert done\n";
+        // v4.pop_back();
+        // v4.pop_back();
+        // v4.pop_back();
+    //     v4.push_back(9);
+    //     v4.push_back(9);
+    //     v4.push_back(9);
+    // v4.clear();
+
+    for (int i: v4)
+        std::cout << i << "| ";
+    cout << endl;
+    auto bb = v4.capacity();
+    cout << bb << endl;
+
+    auto aa = v4.size();
+    cout << aa << endl;
 
     cout << endl;
 

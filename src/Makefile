@@ -38,7 +38,8 @@ test: $(TARGET_LIB)
 	tests/$(TEST_NAME)
 
 val: test
-	valgrind --quiet -s --tool=memcheck --leak-check=full --track-origins=yes --show-leak-kinds=all --log-file=testlog.log tests/$(TEST_NAME)
+	valgrind --quiet -s --tool=memcheck --leak-check=full --track-origins=yes --show-leak-kinds=all --log-file=testlog.log ./executable
+# valgrind --quiet -s --tool=memcheck --leak-check=full --track-origins=yes --show-leak-kinds=all --log-file=testlog.log tests/$(TEST_NAME)
 
 run:
 	./$(OUT_FILE)
