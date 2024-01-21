@@ -1,7 +1,7 @@
 #include <iostream>
-#include <initializer_list>
-#include <cstdlib>
+#include <stdarg.h>
 #include <cmath>
+#include <initializer_list>
 
 #if _WIN32 || _WIN64
 #if _WIN64
@@ -105,7 +105,6 @@ class vector{
             return (m_size);
         }
         size_type max_size() {
-            // _size = sizeof(value_type);
             size_type _size = 0;
 #ifdef ENVIRONMENT64
             _size = std::pow(2, 65 - sizeof(value_type));
@@ -172,6 +171,25 @@ class vector{
             std::swap(other.m_size, m_size);
             std::swap(other.m_capacity, m_capacity);
         }
+
+        template <typename... Args>
+        iterator insert_many(iterator pos, Args&&... args) {
+            std::initializer_list arguments = {args...};
+            size_type siz = end() - pos;
+            size_type count = 0;
+            for (auto i = arguments.begin(); i != arguments.end(); ++i, ++count) {
+                insert(end() - siz, *i);
+            }
+            return (end() - siz - count);
+        }
+        template <typename... Args>
+        void insert_many_back(Args &&... args) {
+            std::initializer_list arguments = {args...};
+            for (auto i = arguments.begin(); i != arguments.end(); ++i) {
+                insert(end(), *i);
+            }
+        }
+
         void print() {
             for (int i = 0; i < m_size; i++) {
                 std::cout << m_arr[i] << " ";
