@@ -1,6 +1,6 @@
 CC = g++ -g
 OS = $(shell uname)
-WORK_DIR = ./
+WORK_DIR = ./lib
 SRC_LIB_FILES = $(wildcard $(WORK_DIR)*.cc)
 OBJS = $(SRC_LIB_FILES:.cc=.o)
 TARGET_LIB = s21_containers.a
@@ -17,7 +17,7 @@ else
 endif
 
 
-all: list run
+all: main run
 
 info:
 	@echo "SRC_LIB_FILES := $(SRC_LIB_FILES)"
@@ -28,7 +28,7 @@ info:
 run:
 	./$(OUT_FILE)
 
-list:
+main:
 	$(CC) $(SRC_LIB_FILES) main.cpp -o $(OUT_FILE)
 
 $(TARGET_LIB): $(SRC_LIB_FILES)
