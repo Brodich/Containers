@@ -48,39 +48,62 @@ int main() {
     // v1.pop_back();
     // v1.pop_back();
     // v1.push_back(87);
-
-    auto it = v1.insert_many(v1.begin(), 8, 9, 10, 12, 55);
-    v1.print();
-    cout << *it << " it\n";
-
     auto hh = v1.capacity();
     cout << hh << endl;
 
     auto rr = v1.size();
     cout << rr << endl;
 
+    vector<int>::iterator itz = v1.begin();
+        std::cout << "Type of num: " << typeid(itz).name() << std::endl;
+    v1.print();
+    auto it = v1.insert_many(v1.begin(), 8, 9, 10, 12, 55);
+    cout << *it << " it\n";
+
+
 
     cout << endl;
 
-
+// Expected equality of these values:
+//   v99.max_size()
+//     Which is: 9223372036854775807
+//   std_v99.max_size()
+//     Which is: 9223372036854775744
 
     cout << "eeeeeeeeee\n";
 
     // 
-    std::vector<int> v4 (4);
-    
+    std::vector<int> v4 (3);
+    std::vector<char> v45 {'f'};
+    cout << v45.max_size() << endl;
+    v4.reserve(6);
     v4[0] = 5;
     v4[1] = 6;
     v4[2] = 7;
-
+    v4[5] = 9;
+    std::vector<int> cpv4 (2);
+    cpv4[0] = 44;
+    cpv4 = std::move(v4);
+    // cout << v4.data() << "data\n";
     for (int i: v4)
         std::cout << i << ' ';
     cout << endl;
     auto gg = v4.capacity();
     cout << gg << endl;
-
     auto zz = v4.size();
     cout << zz << endl;
+
+
+    for (int i: cpv4)
+        std::cout << i << ' ';
+    cout << endl;
+    cout << cpv4[5] << "ctpv4\n";
+    auto mm = cpv4.capacity();
+    cout << mm << endl;
+
+    auto nn = cpv4.size();
+    cout << nn << endl;
+
 
 
     cout << endl;
