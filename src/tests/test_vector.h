@@ -1,8 +1,9 @@
 #include <iostream>
 #include <gtest/gtest.h>
 #include <vector>
-#include "../lib/s21_vector.h"
+#include "../lib/st_vector.h"
 
+using namespace st;
 TEST(vector, base) {
     vector<int> v1;
     vector<int> v2 {4 , 6 , 7, 89};
@@ -23,6 +24,8 @@ TEST(vector, base) {
     char* ptv3 = v3.data();
     vector<char> movev3(std::move(v3));
     char* ptmovev3 = movev3.data();
+
+    ASSERT_EQ(*ptv3, *ptmovev3);
 
     ASSERT_EQ(movev3[0], '4');
     ASSERT_EQ(movev3[1], 'a');
@@ -200,9 +203,4 @@ TEST(vector, erase_swap) {
     ASSERT_EQ(vec_copy.size(), std_copy.size());
     ASSERT_EQ(vec_copy.capacity(), std_copy.capacity());
 
-}
-
-int main(int argc, char** argv) {
-  testing::InitGoogleTest(&argc, argv);
-  return RUN_ALL_TESTS();
 }

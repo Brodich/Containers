@@ -1,6 +1,6 @@
-CC = g++ -g
+CC = g++ -g -Wall -Werror -Wextra -std=c++17
 OS = $(shell uname)
-WORK_DIR = ./lib
+WORK_DIR = ./lib/
 SRC_LIB_FILES = $(wildcard $(WORK_DIR)*.cc)
 OBJS = $(SRC_LIB_FILES:.cc=.o)
 TARGET_LIB = s21_containers.a
@@ -16,8 +16,7 @@ else
 	FLAGS = -lcheck -lm
 endif
 
-
-all: main run
+all: clang gcov
 
 info:
 	@echo "SRC_LIB_FILES := $(SRC_LIB_FILES)"
@@ -25,32 +24,21 @@ info:
 %.o: %.cpp
 	$(CC) -c -o $@ $<
 
-run:
-	./$(OUT_FILE)
-
-main:
-	$(CC) $(SRC_LIB_FILES) main.cpp -o $(OUT_FILE)
-
 $(TARGET_LIB): $(SRC_LIB_FILES)
 	$(CC) -c $(SRC_LIB_FILES)
 	ar -rc $(TARGET_LIB) *.o 
 	rm -rf *.o
 
-
-# test: $(TARGET_LIB)
-# 	$(CC) $(TESTS) $(TARGET_LIB) $(FLAGS) $(OTHER_LIBS) -o tests/$(TEST_NAME)
-# 	tests/$(TEST_NAME)
-
-.PHONY: test
-test:
+.PHONY: test clang
+test: clang
 	$(CC) $(TESTS) $(FLAGS) $(OTHER_LIBS) -o tests/$(TEST_NAME)
 	tests/$(TEST_NAME)
 
-gcov:
+gcov: clang
 	$(CC) $(FIX_GCOV) -w $(SRC_LIB_FILES) tests/*.cc  $(OTHER_LIBS) $(GCOVFLAGS) -o test
-	./test
+	./test 
 ifeq ($(OS), Linux)
-	lcov  -t test -o rep.info -c -d .
+	lcov --no-external -t test -o rep.info -c -d .
 else 
 	lcov --ignore-errors mismatch --no-external -t test -o rep.info -c -d .
 endif
@@ -62,11 +50,12 @@ val: test
 	valgrind --quiet -s --tool=memcheck --leak-check=full --track-origins=yes --show-leak-kinds=all --log-file=testlog.log tests/$(TEST_NAME)
 # valgrind --quiet -s --tool=memcheck --leak-check=full --track-origins=yes --show-leak-kinds=all --log-file=testlog.log ./executable
 
-
 clang:
-	@clang-format -style=google -i $(WORK_DIR)*.cc
-	@clang-format -style=google -i $(WORK_DIR)*.h
+	-@clang-format -style=google -i $(WORK_DIR)*.cc
+	-@clang-format -style=google -i $(WORK_DIR)*.h
 
 clean:
-	-@rm a.out executable testlog.log s21_containers.a tests/test test
-	-@rm -rf report
+	-@rm a.out executable testlog.log s21_containers.a tests/test test *.gcno *.gcda 
+	-@rm -rf report tests/test.dSYM executable.dSYM test.dSYM
+
+
